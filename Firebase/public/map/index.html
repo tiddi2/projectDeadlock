@@ -154,7 +154,7 @@ function initMap() {
             destination: {'placeId': destination_place_id},
             waypoints: mellomstoppFraDatabase,
             travelMode: travel_mode,
-          optimizeWaypoints: true,
+            optimizeWaypoints: true,
           }, function(response, status) {
             if (status === 'OK') {
               directionsDisplay.setDirections(response);

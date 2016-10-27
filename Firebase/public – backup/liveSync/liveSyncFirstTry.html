@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Top Secret</title>
+        <style media="screen">
+            #tekst1 {
+                width: 400px;
+                height: 200px;
+                bottom: 50px;;
+                margin: auto;
+                display: block;
+                background-color: #ccc;
+            }
+            #tekst2 {
+                width: 400px;
+                height: 600px;
+                margin: auto;
+                display: block;
+                background-color: #696969;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="tekst2"></div>
+        <div contenteditable="true" id="tekst1"></div>
+    </body>
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+    <script src="../script/firebaseInit.js"></script>
+    <script src="../script/liveSyncTesting.js"></script>
+    </script>
+</html>

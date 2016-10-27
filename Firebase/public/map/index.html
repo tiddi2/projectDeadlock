@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Place Autocomplete</title>
+    <title>Pickup calculator</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -55,10 +55,31 @@
     <div id="map"></div>
 
     <script>
+    var mellomstopp = [{
+        location: "sarpsborg, norge",
+      stopover: true
+   },{
+   location: "fredrikstad, norge",
+    stopover: true
+   }]
+   var mellomstoppFraDatabase;
+    const waypoints = firebase.database().ref("waypoints")
+
+    var newPostRef = waypoints.push();
+    newPostRef.set({
+        waypoints: mellomstopp
+    });
+
+    waypoints.on('child_added', function (snap) {
+        mellomstoppFraDatabase = snap.child("waypoints").val()
+    });
+
+
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
+      console.log(mellomstopp)
       function initMap() {
         var origin_place_id = null;
         var destination_place_id = null;
@@ -139,7 +160,9 @@
           directionsService.route({
             origin: {'placeId': origin_place_id},
             destination: {'placeId': destination_place_id},
-            travelMode: travel_mode
+            waypoints: mellomstopp,
+            travelMode: travel_mode,
+          optimizeWaypoints: true,
           }, function(response, status) {
             if (status === 'OK') {
               directionsDisplay.setDirections(response);

@@ -41,11 +41,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         console.log(firebaseUser)
         var userId = firebase.auth().currentUser.uid;
-        var adresse;
-        firebase.database().ref('userInfo/' + userID).once('value').then(function(snapshot) {
-            adresse = snapshot.val().lastURL;
-        });
-        console.log("url: " + adresse)
     }
     else {
         console.log("not logged in")

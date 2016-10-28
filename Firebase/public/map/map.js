@@ -2,10 +2,24 @@ const provider = new firebase.auth.GoogleAuthProvider();
 var mellomstoppFraDatabase;
 const waypoints = firebase.database().ref("waypoints")
 
-
+var userid;
+var displayName;
+var carPicture;
 waypoints.on('child_added', function(snap) {
     mellomstoppFraDatabase = snap.child("waypoints").val()
 });
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+        userid = firebase.auth().currentUser.uid
+        displayName = firebase.auth().currentUser.DisplayName
+    } else {
+        console.log("Ikke innlogget")
+
+    }
+});
+
+console.log(displayName)
+console.log(userid)
 
 
 // This example requires the Places library. Include the libraries=places

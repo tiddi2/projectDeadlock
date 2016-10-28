@@ -15,7 +15,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         var nettadresse = (window.location.href).toString()
         logURL(userUID, nettadresse)
     } else {
-        firebase.auth().signInAnonymously();
+        //firebase.auth().signInAnonymously();
         console.log("laget anonym acount")
     }
 });

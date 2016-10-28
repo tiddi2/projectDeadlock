@@ -2,12 +2,12 @@ const provider = new firebase.auth.GoogleAuthProvider();
 var mellomstoppFraDatabase;
 const waypoints = firebase.database().ref("waypoints")
 
-
 waypoints.on('child_added', function(snap) {
     mellomstoppFraDatabase = snap.child("waypoints").val()
 });
 
-
+var d = new Date();
+console.log(d)
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -28,9 +28,7 @@ function initMap() {
     var geocoder = new google.maps.Geocoder;
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
-    var infoWindow = new google.maps.InfoWindow({
-        map: map
-    });
+    var infoWindow;
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -39,41 +37,17 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
-            function geocodeLatLng(geocoder, map, infoWindow, startPosition, lat, lng) {
-                var latlng = {
-                    lat: lat,
-                    lng: lng
-                };
-                geocoder.geocode({
-                    'location': latlng
-                }, function(results, status) {
-                    if (status === 'OK') {
-                        if (results[0]) {
-                            infoWindow.setContent(results[0].formatted_address);
-                            startPosition.value = results[0].formatted_address;
-                        }
-                        else if (results[1]) {
-                            infoWindow.setContent(results[1].formatted_address);
-                            startPosition.value = results[1].formatted_address;
-                        }
-                        else {
-                            console.log("no results found");
-                        }
-                    } else {
-                        console.log('Geocoder failed due to: ' + status)
-                    }
-                });
-            }
-
+            infoWindow = new google.maps.InfoWindow({map: map});
             infoWindow.setPosition(userPos);
             infoWindow.setContent(geocodeLatLng(geocoder, map, infoWindow, origin_input, userPos.lat, userPos.lng));
             map.setCenter(userPos);
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
+
         });
     } else {
         // Browser doesn't support Geolocation
+
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
@@ -83,8 +57,6 @@ function initMap() {
         //    'Error: The Geolocation service failed.' :
         //    'Error: Your browser doesn\'t support geolocation.');
     }
-
-
 
     directionsDisplay.setMap(map);
 
@@ -97,7 +69,6 @@ function initMap() {
     origin_autocomplete.bindTo('bounds', map);
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
-
 
 
     function expandViewportToFitPlace(map, place) {
@@ -163,4 +134,30 @@ function initMap() {
             }
         });
     }
+}
+
+function geocodeLatLng(geocoder, map, infoWindow, startPosition, lat, lng) {
+    var latlng = {
+        lat: lat,
+        lng: lng
+    };
+    geocoder.geocode({
+        'location': latlng
+    }, function(results, status) {
+        if (status === 'OK') {
+            if (results[0]) {
+                infoWindow.setContent(results[0].formatted_address);
+                startPosition.value = results[0].formatted_address;
+            }
+            else if (results[1]) {
+                infoWindow.setContent(results[1].formatted_address);
+                startPosition.value = results[1].formatted_address;
+            }
+            else {
+                console.log("no results found");
+            }
+        } else {
+            console.log('Geocoder failed due to: ' + status)
+        }
+    });
 }

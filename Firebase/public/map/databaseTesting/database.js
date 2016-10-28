@@ -1,11 +1,26 @@
 document.getElementById("addRoute").onclick = addRoute;
+const ruter = firebase.database().ref("kjoreturer");
+
 
 function addRoute(){
-  let start = document.getElementById("start").value;
-  let mellomstopp = document.getElementById("mellomstopp").value;
-  let slutt = document.getElementById("slutt").value;
-  let navn = document.getElementById("navn").value;
+  const start = document.getElementById("start").value;
+  const slutt = document.getElementById("slutt").value;
+  const navn = document.getElementById("navn").value;
+  const omvei = parseInt(document.getElementById("omvei").value);
+  const tid = document.getElementById("tid").value;
   const output = document.getElementById("output")
 
-  output.innerHTML = start + mellomstopp + slutt + navn;
+addToDatabase(navn,start,slutt,omvei,tid);
+}
+
+function addToDatabase(navn,start,slutt,omvei,tid){
+  let newPostRef = ruter.push();
+  newPostRef.set({
+    driverArriveStopTime: tid,
+    acceptedDetour: omvei,
+    driverID: navn,
+    driverName: navn,
+    startPlace: start,
+    stopPlace: slutt
+  });
 }

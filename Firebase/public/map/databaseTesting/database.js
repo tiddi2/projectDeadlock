@@ -1,5 +1,7 @@
 document.getElementById("addRoute").onclick = addRoute;
-const ruter = firebase.database().ref("kjoreturer");
+const database = firebase.database();
+const ruter = database.ref("kjoreturer");
+const output = document.getElementById("output");
 
 
 function addRoute(){
@@ -8,17 +10,20 @@ function addRoute(){
   const navn = document.getElementById("navn").value;
   const omvei = parseInt(document.getElementById("omvei").value);
   const tid = document.getElementById("tid").value;
-  const output = document.getElementById("output")
 
-addToDatabase(navn,start,slutt,omvei,tid);
+addToDatabase(navn,navn,start,slutt,omvei,tid);
 }
 
-function addToDatabase(navn,start,slutt,omvei,tid){
-  let newPostRef = ruter.push();
+ruter.on("value", function(snapshot){
+  output.innerHTML = snapshot.child("stopPlace").val();
+})
+
+function addToDatabase(id,navn,start,slutt,omvei,tid){
+  let rute = database.ref("/kjoreturer/" + id + "/Drives");
+  let newPostRef = rute.push();
   newPostRef.set({
     driverArriveStopTime: tid,
     acceptedDetour: omvei,
-    driverID: navn,
     driverName: navn,
     startPlace: start,
     stopPlace: slutt

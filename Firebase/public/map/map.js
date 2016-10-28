@@ -26,6 +26,8 @@ function initMap() {
         zoom: 11
     });
     var geocoder = new google.maps.Geocoder;
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
     var infoWindow = new google.maps.InfoWindow({
         map: map
     });
@@ -46,16 +48,16 @@ function initMap() {
                 geocoder.geocode({
                     'location': latlng
                 }, function(results, status) {
-                    console.log(results)
                     if (status === 'OK') {
                         if (results[0]) {
                             infoWindow.setContent(results[0].formatted_address);
                             startPosition.value = results[0].formatted_address;
-                        } else if (results[1]) {
+                        }
+                        else if (results[1]) {
                             infoWindow.setContent(results[1].formatted_address);
                             startPosition.value = results[1].formatted_address;
-
-                        } else {
+                        }
+                        else {
                             console.log("no results found");
                         }
                     } else {
@@ -83,8 +85,7 @@ function initMap() {
     }
 
 
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
+
     directionsDisplay.setMap(map);
 
     var origin_input = document.getElementById('origin-input');
@@ -94,18 +95,10 @@ function initMap() {
 
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
     origin_autocomplete.bindTo('bounds', map);
-    var destination_autocomplete =
-        new google.maps.places.Autocomplete(destination_input);
+    var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
 
-    // Sets a listener on a radio button to change the filter type on Places
-    // Autocomplete.
-    function setupClickListener(id, mode) {
-        var radioButton = document.getElementById(id);
-        radioButton.addEventListener('click', function() {
-            travel_mode = mode;
-        });
-    }
+
 
     function expandViewportToFitPlace(map, place) {
         if (place.geometry.viewport) {
@@ -117,6 +110,7 @@ function initMap() {
     }
 
     origin_autocomplete.addListener('place_changed', function() {
+        console.log("START CHANGED")
         var place = origin_autocomplete.getPlace();
         if (!place.geometry) {
             window.alert("Autocomplete's returned place contains no geometry");

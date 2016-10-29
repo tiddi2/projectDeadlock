@@ -7,7 +7,7 @@
 }
 main {
     overflow:auto;
-    width: 40%;
+    width: 800px;
     margin: 20px auto;
     background: #696969;
 
@@ -22,7 +22,8 @@ h3 {
     font-size: 2em;
     margin-bottom: 10px;
 }
-#firstNameWrapper, #middelNameWrapper, #lastNameWrapper,#homeAdressWrapper,#workAdressWrapper {
+#firstNameWrapper, #middelNameWrapper, #lastNameWrapper,
+#homeAdressWrapper,#workAdressWrapper, #buttonWrapper {
     display: inline-flex;
     -webkit-justify-content: center; /* Safari */
     justify-content:         center;
@@ -37,7 +38,7 @@ h3 {
 }
 #firstName, #middelName, #lastName,
 #homeAddress,#homeCity,#homeCountySelect,
-#workAddress,#workcity,#workCountySelect {
+#workAddress,#workcity,#workCountySelect,#savetoDatabase {
     width: 36%;
     height: 2em;
     margin: auto;
@@ -52,13 +53,19 @@ h3 {
     -webkit-justify-content: center; /* Safari */
     justify-content:         center;
     width: 100%;
-    margin: auto;
+    margin: 15px auto;
 }
-#fodselsDag, #fodselsMaaned, #fodselsAar {
+#bornDate, #bornMonth, #bornYear {
     margin-top: 10px;
     width: 12.3%;
     height: 2em;
 }
 .dropdown, .dropdown > *, .inputField {
     color: grey;
+}
+
+#savetoDatabase {
+    background-color: limeGreen;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }

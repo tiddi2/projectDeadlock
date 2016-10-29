@@ -1,30 +1,32 @@
-const provider = new firebase.auth.GoogleAuthProvider();
+var userid, displayName, email, photoURL
 var mellomstoppFraDatabase;
 const waypoints = firebase.database().ref("waypoints")
-
-var userid;
-var displayName;
-var carPicture;
-waypoints.on('child_added', function(snap) {
-    mellomstoppFraDatabase = snap.child("waypoints").val()
-});
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
+
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+
+        //var carPicture or number
+        waypoints.on('child_added', function(snap) {
+            mellomstoppFraDatabase = snap.child("waypoints").val()
+        });
+
         userid = firebase.auth().currentUser.uid
-        displayName = firebase.auth().currentUser.DisplayName
+        displayName = firebase.auth().currentUser.displayName
+        email = firebase.auth().currentUser.email
+        photoURL = firebase.auth().currentUser.photoURL
+        console.log(userid)
+        console.log(displayName)
+        console.log(email)
+        console.log(photoURL)
+
     } else {
         console.log("Ikke innlogget")
-
+        window.location.href ="../login.html"
     }
 });
 
-console.log(displayName)
-console.log(userid)
-
-
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 function initMap() {
     var userPos = null;
@@ -39,6 +41,7 @@ function initMap() {
         },
         zoom: 11
     });
+
     var geocoder = new google.maps.Geocoder;
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -101,18 +104,46 @@ function initMap() {
 
 
     directionsDisplay.setMap(map);
-
+    var confirm_route = document.getElementById("confirmRoute")
     var origin_input = document.getElementById('origin-input');
     var destination_input = document.getElementById('destination-input');
+    confirm_route.onclick = collectData
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(confirm_route);
 
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
     origin_autocomplete.bindTo('bounds', map);
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
+    function collectData() {
+        const driverId = userid
+        const arrivalTime = (new Date()).toString() //skal bli utfyllt automatisk,
+        const acceptedDetour = 30
+        const driverName = displayName
+        const startPlace = origin_input.value
+        const stopPlace = destination_input.value
+        if(startPlace !== "" && stopPlace !== "") {
+            saveRouteToDatabase(driverId,arrivalTime,acceptedDetour,driverName,startPlace,stopPlace)
+            origin_input.value = "";
+            destination_input.value = "";
+        }
+    }
 
+    function saveRouteToDatabase(driverId,DriverArriveStopTime,acceptedDetour,driverName,startPlace,stopPlace){
+        const drives = firebase.database().ref("kjoreturer/" + driverId + "/Drives")
 
+        var newPostRef = drives.push();
+        newPostRef.set({
+            DriverArriveStopTime: DriverArriveStopTime,
+            acceptedDetour: acceptedDetour,
+            driverName: driverName,
+            startPlace: startPlace,
+            stopPlace: stopPlace
+
+        });
+
+    }
 
     function expandViewportToFitPlace(map, place) {
         if (place.geometry.viewport) {
@@ -140,6 +171,7 @@ function initMap() {
     });
 
     destination_autocomplete.addListener('place_changed', function() {
+        console.log("Destinatiopn CHANGED")
         var place = destination_autocomplete.getPlace();
         if (!place.geometry) {
             window.alert("Autocomplete's returned place contains no geometry");

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Setup profile</title>
+    </head>
+    <body>
+        <h1>Tell us a little bit about yourself to make your life easier</h1>
+        <p>First Name</p>
+        <input type="text" id="firstName" placeholder="First name">
+        <p>Middel Name</p>
+        <input type="text" id="middelName" placeholder="Middel name">
+        <p>Last Name</p>
+        <input type="text" id="lastName" placeholder="Last name">
+        <div id="birthInfo">
+            <select id= "fodselsDag" class="dropdown">
+              <option hidden>Dag</option>
+            </select>
+            <select id= "fodselsMaaned" class="dropdown">
+              <option hidden>Måned</option>
+            </select>
+            <select id= "fodselsAar" class="dropdown">
+              <option hidden>År</option>
+            </select>
+        </div>
+
+
+        <h3>Home Adress</h3>
+        <input type="text" id="homeAddress" placeholder="Home Adress">
+        <p>City</p>
+        <input type="text" id="homeCity" placeholder="City">
+        <select id="homeCountySelect">
+            <option value="option" hiddenk>Land</option>
+        </select>
+
+        <h3>Work Adress</h3>
+        <input type="text" id="workAddress" placeholder="Work Adress">
+        <p>City</p>
+        <input type="text" id="workcity" placeholder="City">
+        <select id="workCountySelect">
+            <option value="option" hiddenk>Land</option>
+        </select>
+        <script src="setupProfile.js"></script>
+    </body>
+</html>

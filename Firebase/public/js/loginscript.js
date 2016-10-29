@@ -39,6 +39,7 @@ btnLogin.addEventListener("click", e => {
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
+        window.location.href = "/map/index.html"
         console.log(firebaseUser)
         var userId = firebase.auth().currentUser.uid;
     }

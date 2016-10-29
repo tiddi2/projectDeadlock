@@ -3,43 +3,65 @@
     <head>
         <meta charset="utf-8">
         <title>Setup profile</title>
+        <link rel="stylesheet" href="setupProfile.css">
     </head>
     <body>
-        <h1>Tell us a little bit about yourself to make your life easier</h1>
-        <p>First Name</p>
-        <input type="text" id="firstName" placeholder="First name">
-        <p>Middel Name</p>
-        <input type="text" id="middelName" placeholder="Middel name">
-        <p>Last Name</p>
-        <input type="text" id="lastName" placeholder="Last name">
-        <div id="birthInfo">
-            <select id= "fodselsDag" class="dropdown">
-              <option hidden>Dag</option>
-            </select>
-            <select id= "fodselsMaaned" class="dropdown">
-              <option hidden>Måned</option>
-            </select>
-            <select id= "fodselsAar" class="dropdown">
-              <option hidden>År</option>
-            </select>
-        </div>
+        <main>
+            <h1>Tell us about yourself</h1>
+                <div id="firstNameWrapper">
+                    <span class="nameLabel">First Name</span>
+                    <input type="text" id="firstName" class="inputField" placeholder="First name">
+                </div>
+                <div id="middelNameWrapper">
+                    <span class="nameLabel">Middel Name</span>
+                    <input type="text" id="middelName" class="inputField" placeholder="Middel name">
+                </div>
+                <div id="lastNameWrapper">
+                    <span class="nameLabel">Last Name</span>
+                    <input type="text" id="lastName" class="inputField" placeholder="Last name">
+                </div>
 
 
-        <h3>Home Adress</h3>
-        <input type="text" id="homeAddress" placeholder="Home Adress">
-        <p>City</p>
-        <input type="text" id="homeCity" placeholder="City">
-        <select id="homeCountySelect">
-            <option value="option" hiddenk>Land</option>
-        </select>
+            <div id="birthInfo">
+                <select id= "fodselsDag" class="dropdown">
+                  <option hidden>Dag</option>
+                </select>
+                <select id= "fodselsMaaned" class="dropdown">
+                  <option hidden>Måned</option>
+                </select>
+                <select id= "fodselsAar" class="dropdown">
+                  <option hidden>År</option>
+                </select>
+            </div>
 
-        <h3>Work Adress</h3>
-        <input type="text" id="workAddress" placeholder="Work Adress">
-        <p>City</p>
-        <input type="text" id="workcity" placeholder="City">
-        <select id="workCountySelect">
-            <option value="option" hiddenk>Land</option>
-        </select>
+
+            <div id="homeAdressWrapper">
+                <h3>Home Adress</h3>
+                <input type="text" id="homeAddress"  class="inputField"placeholder="Home Adress">
+
+                <span class="nameLabel">City</span>
+                <input type="text" id="homeCity" class="inputField" placeholder="City"> <br>
+
+                <span class="nameLabel">Country</span>
+                <select id="homeCountySelect" class="dropdown">
+                    <option value="option" hidden>Country</option>
+                </select>
+            </div>
+
+
+            <div id="workAdressWrapper">
+                <h3 id=>Work Adress</h3>
+                <input type="text" id="workAddress" class="inputField" placeholder="Work Adress">
+                <span class="nameLabel">City</span>
+                <input type="text" id="workcity" class="inputField" placeholder="City"> <br>
+
+                <span class="nameLabel">Country</span>
+                <select id="workCountySelect" class="dropdown">
+                    <option value="option" hidden>Country</option>
+                </select>
+            </div>
+
+        </main>
         <script src="setupProfile.js"></script>
     </body>
 </html>

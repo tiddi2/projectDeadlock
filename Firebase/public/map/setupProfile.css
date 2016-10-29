@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+    font-weight: 300;
+    color: white;
+}
+main {
+    overflow:auto;
+    width: 40%;
+    margin: 20px auto;
+    background: #696969;
+
+}
+h1 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+h3 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+#firstNameWrapper, #middelNameWrapper, #lastNameWrapper,#homeAdressWrapper,#workAdressWrapper {
+    display: inline-flex;
+    -webkit-justify-content: center; /* Safari */
+    justify-content:         center;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.nameLabel {
+    margin: auto;
+    font-size: 1.5em;
+}
+#firstName, #middelName, #lastName,
+#homeAddress,#homeCity,#homeCountySelect,
+#workAddress,#workcity,#workCountySelect {
+    width: 36%;
+    height: 2em;
+    margin: auto;
+}
+#workCountySelect {
+    margin-bottom: 20px;
+}
+#birthInfo {
+    display: inline-flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-justify-content: center; /* Safari */
+    justify-content:         center;
+    width: 100%;
+    margin: auto;
+}
+#fodselsDag, #fodselsMaaned, #fodselsAar {
+    margin-top: 10px;
+    width: 12.3%;
+    height: 2em;
+}
+.dropdown, .dropdown > *, .inputField {
+    color: grey;
+}

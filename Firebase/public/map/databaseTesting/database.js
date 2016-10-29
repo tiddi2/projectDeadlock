@@ -1,4 +1,6 @@
 document.getElementById("addRoute").onclick = addRoute;
+document.getElementById("output").onchange = hentInfo;
+
 const database = firebase.database();
 const ruter = database.ref("kjoreturer");
 const output = document.getElementById("output");
@@ -19,11 +21,36 @@ ruter.on("child_added", function(snapshot){
    for(rute in snapshot.child(user).val()){
      let start = snapshot.child(user).child(rute).val().startPlace;
      let stop = snapshot.child(user).child(rute).val().stopPlace;
-     let id = rute;
-     output.innerHTML += "<option id='" +  id + "'>" + start + " - " + stop + "</option>";
+     //console.log(rute);
+     output.innerHTML += "<option value='" +  rute + "'>" + start + " - " + stop + "</option>";
    }
  }
 })
+
+function hentInfo(){
+  const info = document.getElementById("info");
+  info.innerHTML = "";
+
+  database.ref("kjoreturer").once('value').then(function(snapshot) {
+    for(user in snapshot.val()){
+      for(mappe in snapshot.child(user).val()){
+        for(tur in snapshot.child(user).child(mappe).val()){
+          if(output.value == tur){
+            let infoObject = snapshot.child(user).child(mappe).child(tur).val();
+            let driver = infoObject.driverName;
+            let startPlace = infoObject.startPlace;
+            let stopPlace = infoObject.stopPlace;
+            let time = infoObject.driverArriveStopTime;
+
+            info.innerHTML = driver + "\nStart: " + startPlace + "\nStop: " + stopPlace + "\nNår: " + time;
+          }
+        }
+      }
+    }
+  });
+}
+
+
 
 function addToDatabase(id,navn,start,slutt,omvei,tid){
   let rute = database.ref("/kjoreturer/" + id + "/Drives");

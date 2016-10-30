@@ -16,11 +16,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         displayName = firebase.auth().currentUser.displayName
         email = firebase.auth().currentUser.email
         photoURL = firebase.auth().currentUser.photoURL
-        console.log(userid)
-        console.log(displayName)
-        console.log(email)
-        console.log(photoURL)
-
     } else {
         console.log("Ikke innlogget")
         window.location.href ="../login.html"

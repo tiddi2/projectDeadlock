@@ -1,3 +1,29 @@
+var userid, displayName, email, photoURL
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+        userid = firebase.auth().currentUser.uid
+        displayName = firebase.auth().currentUser.displayName
+        email = firebase.auth().currentUser.email
+        photoURL = firebase.auth().currentUser.photoURL
+    } else {
+        console.log("Ikke innlogget")
+        window.location.href ="../login.html"
+    }
+});
+
+// TODO: Lag constanter av alle input elementene
+const firstName = document.getElementById("firstName")
+const middelName = document.getElementById("middelName")
+const lastName = document.getElementById("lastName")
+const homeAddress = document.getElementById("homeAddress")
+const homeCity = document.getElementById("homeCity")
+const homeCountySelect = document.getElementById("homeCountySelect")
+
+const workAddress = document.getElementById("workAddress")
+const workcity = document.getElementById("workcity")
+const workCountySelect = document.getElementById("workCountySelect")
+
+
 var currentTime = new Date();
 var currentYear = currentTime.getFullYear();
 const monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -45,13 +71,25 @@ for (var i = 0; i <= 100; i++) {
 
 function sjekkData() {
     // TODO: Sjekk for gyldig data
-    //Skriv så til database
+    if(true/*gyldig info*/) {
+        var birthDate = new Date(bornMonth.value + "-" + bornDate.value + "-" + bornYear.value)
+          firebase.database().ref('users/' + userid).set({
+            firstName: firstName.value,
+            middelName: middelName.value,
+            lastName: lastName.value,
+            birthDate: birthDate.toString(),
+            homeAddress: homeAddress.value + ", " + homeCity.value + "," + homeCountySelect.value ,
+            workAddress: workAddress.value + ", " + workcity.value + "," + workCountySelect.value,
+            lastUpdate: currentTime.toString()
+        });
+    }
+
 
 }
 function checkDatesInMonth() {
-    var selectedYear = parseInt(bornYear.options[bornYear.selectedIndex].value);
-    var selectedMonth = parseInt(bornMonth.options[bornMonth.selectedIndex].value)+1;
-    var selectedDate = parseInt(bornDate.options[bornDate.selectedIndex].value);
+    var selectedYear = parseInt(bornYear.value);
+    var selectedMonth = parseInt(bornMonth.value)+1;
+    var selectedDate = parseInt(bornDate.value);
 
     console.log(new Date (selectedMonth + "/" + selectedDate + "/" + selectedYear))
     //console.log(daysInMonth((selectedMonth+1), selectedYear))

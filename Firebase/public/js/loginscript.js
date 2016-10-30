@@ -39,9 +39,15 @@ btnLogin.addEventListener("click", e => {
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
-        window.location.href = "/map/index.html"
-        console.log(firebaseUser)
         var userId = firebase.auth().currentUser.uid;
+        firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+            if(snapshot.val()) {
+                window.location.href = "/map/index.html"
+            }
+            else {
+                window.location.href = "/map/setupProfile.html"
+            }
+        });
     }
     else {
         console.log("not logged in")

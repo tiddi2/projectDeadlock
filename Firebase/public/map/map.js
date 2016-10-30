@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         photoURL = firebase.auth().currentUser.photoURL
     } else {
         console.log("Ikke innlogget")
-        window.location.href ="../login.html"
+        window.location.href = "../login.html"
     }
 });
 
@@ -36,7 +36,8 @@ function initMap() {
         },
         zoom: 11
     });
-
+    var bounds = new google.maps.LatLngBounds;
+    var service = new google.maps.DistanceMatrixService;
     var geocoder = new google.maps.Geocoder;
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -64,12 +65,10 @@ function initMap() {
                         if (results[0]) {
                             infoWindow.setContent(results[0].formatted_address);
                             startPosition.value = results[0].formatted_address;
-                        }
-                        else if (results[1]) {
+                        } else if (results[1]) {
                             infoWindow.setContent(results[1].formatted_address);
                             startPosition.value = results[1].formatted_address;
-                        }
-                        else {
+                        } else {
                             console.log("no results found");
                         }
                     } else {
@@ -111,6 +110,7 @@ function initMap() {
     origin_autocomplete.bindTo('bounds', map);
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
+
     function collectData() {
         const driverId = userid
         const arrivalTime = (new Date()).toString() //skal bli utfyllt automatisk,
@@ -118,14 +118,51 @@ function initMap() {
         const driverName = displayName
         const startPlace = origin_input.value
         const stopPlace = destination_input.value
-        if(startPlace !== "" && stopPlace !== "") {
-            saveRouteToDatabase(driverId,arrivalTime,acceptedDetour,driverName,startPlace,stopPlace)
+        if (startPlace !== "" && stopPlace !== "") {
+            //finner tid og distanse
+            service.getDistanceMatrix({
+                origins: [startPlace, startPlace, mellomstoppFraDatabase[0].location,mellomstoppFraDatabase[1].location],
+                destinations: [stopPlace, mellomstoppFraDatabase[0].location,mellomstoppFraDatabase[1].location, stopPlace],
+                travelMode: 'DRIVING',
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function(response, status) {
+                if (status !== 'OK') {
+                    alert('Error was: ' + status);
+                }
+                else {
+                    var originList = response.originAddresses;
+                    var destinationList = response.destinationAddresses;
+                    var outputDiv = document.getElementById('output');
+                    outputDiv.innerHTML = '';
+                    var originalTime = response.rows[0].elements[0].duration.value;
+                    var originalDistanse = response.rows[0].elements[0].distance.value;
+
+                    var totalTime = 0;
+                    var totalDistance = 0;
+                    for (var i = 1; i < originList.length; i++) {
+                        var results = response.rows[i].elements;
+                        outputDiv.innerHTML += originList[i] + ' to ' + destinationList[i] +
+                        ': ' + results[i].distance.text + ' in ' +
+                        results[i].duration.text + '<br>';
+                        totalTime += results[i].duration.value
+                        totalDistance += results[i].distance.value
+                    }
+                    console.log("Orginal tid: " + originalTime)
+                    console.log("Total tid: " + totalTime)
+                    console.log("Orginal distanse: " +originalDistanse)
+                    console.log("Total distanse: " + totalDistance)
+                }
+            });
+
+            saveRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
             origin_input.value = "";
             destination_input.value = "";
         }
     }
 
-    function saveRouteToDatabase(driverId,DriverArriveStopTime,acceptedDetour,driverName,startPlace,stopPlace){
+    function saveRouteToDatabase(driverId, DriverArriveStopTime, acceptedDetour, driverName, startPlace, stopPlace) {
         const drives = firebase.database().ref("kjoreturer/" + driverId + "/Drives")
 
         var newPostRef = drives.push();

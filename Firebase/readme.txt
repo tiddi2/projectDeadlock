@@ -5,11 +5,16 @@ TODO:
 4) Les deg opp på Draggable directions (https://developers.google.com/maps/documentation/javascript/examples/directions-draggable)
 
 
-Porgrammet skal:
-1) La sjåfør legge inn kjørerute og tidspunkt (Etterhvert også rutine turer)
-1.1) Hvis det er en annen sjåfør som allerede har lagt inn en lignende rute til samme til kan sjåfør få beskjed om det og la en av de bli passasjer.
-2) Programmet skal regne ut distanse og tid fra A til B til sjåfør og lagre dette
-3) Programmet skal sammenligne tid og distanse mellom orginal rute og alternativ rute (A-B-C-D)
-4) Programmet skal legge sortere og presentere de alternative rutene for sjåføren slik at han kan se hvem han vil kjøre
-5) Gi beskjer/spørre om godkjenning av begge to. Derreter gi tydelig beskjer om hvor de skal være til hvilken tid.
-6?) Appen kan evt gi ETA til passasjer om når Sjåfør ankommer
+Mål:
+1) Lage en nettside med profilinformasjon til hver enkelt bruker
+1.1 Sette opp statestikk for hvor mange kjøreturer personen har gjort
+1.2 Sette opp rangerinsystem for hvor fornørd passasjerene/sjåførene er med denne brukeren
+1.3 Sette opp stattestikk på hvor mye CO2 de har spart
+1.4 Sette opp statestikk for punktlighet
+1.5 Sette opp info om førekort (prikker, hvor lenge h*n har hatt førerkort)
+1.6 Sette opp info om bil (utslipp, farge, bilde, sikkerhet)
+2) Finne Sjåfører skal samme lignende vei og som godtar omveien du bringer til turen.
+3) Sjekke at Sjåførene faktisk kjører den ruta de skal, og at de følger tiden
+4) Når sjåfører registrerer ruter, koble de opp mot andre sjåfører som skal lignende vei
+5) Flytte gamle kjøreturer over til en logg, og bort fra søkedelen av databasen
+6) La Sjåfører sette opp rutine turer (hver dag, hver mandag(osv), hver helg, hver hverdag)

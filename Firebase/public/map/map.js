@@ -41,6 +41,11 @@ function initMap() {
     var geocoder = new google.maps.Geocoder;
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
+    /*var directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: map
+    });
+    */
     var infoWindow = new google.maps.InfoWindow({
         map: map
     });
@@ -136,8 +141,8 @@ function initMap() {
                     var destinationList = response.destinationAddresses;
                     var outputDiv = document.getElementById('output');
                     outputDiv.innerHTML = '';
-                    var originalTime = response.rows[0].elements[0].duration.value;
-                    var originalDistanse = response.rows[0].elements[0].distance.value;
+                    var originalTime = response.rows[0].elements[0].duration.value/60;
+                    var originalDistanse = response.rows[0].elements[0].distance.value/1000;
 
                     var totalTime = 0;
                     var totalDistance = 0;
@@ -146,13 +151,15 @@ function initMap() {
                         outputDiv.innerHTML += originList[i] + ' to ' + destinationList[i] +
                         ': ' + results[i].distance.text + ' in ' +
                         results[i].duration.text + '<br>';
-                        totalTime += results[i].duration.value
-                        totalDistance += results[i].distance.value
+                        totalTime += results[i].duration.value/60
+                        totalDistance += results[i].distance.value/1000
                     }
                     console.log("Orginal tid: " + originalTime)
                     console.log("Total tid: " + totalTime)
-                    console.log("Orginal distanse: " +originalDistanse)
-                    console.log("Total distanse: " + totalDistance)
+                    console.log("ekstra tid: " + (totalTime - originalTime))
+                    console.log("Orginal distanse: " + originalDistanse + "km")
+                    console.log("Total distanse: " + totalDistance + "km")
+                    console.log("Ekstra distanse: " + (totalDistance - originalDistanse) + "km")
                 }
             });
 

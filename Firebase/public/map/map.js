@@ -163,26 +163,12 @@ function initMap() {
                 }
             });
 
-            saveRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
+            addRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
             origin_input.value = "";
             destination_input.value = "";
         }
     }
 
-    function saveRouteToDatabase(driverId, DriverArriveStopTime, acceptedDetour, driverName, startPlace, stopPlace) {
-        const drives = firebase.database().ref("kjoreturer/" + driverId + "/Drives")
-
-        var newPostRef = drives.push();
-        newPostRef.set({
-            DriverArriveStopTime: DriverArriveStopTime,
-            acceptedDetour: acceptedDetour,
-            driverName: driverName,
-            startPlace: startPlace,
-            stopPlace: stopPlace
-
-        });
-
-    }
 
     function expandViewportToFitPlace(map, place) {
         if (place.geometry.viewport) {

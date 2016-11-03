@@ -263,23 +263,16 @@ function initMap() {
                     window.alert('Directions request failed due to ' + status);
                 }
             });
+<<<<<<< HEAD
+=======
+
+            addRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
+            origin_input.value = "";
+            destination_input.value = "";
+>>>>>>> 141f04954ec6f697110d1e083d08de357115ea26
         }
     }
 
-    function saveRouteToDatabase(driverId, DriverArriveStopTime, acceptedDetour, driverName, startPlace, stopPlace) {
-        const drives = firebase.database().ref("kjoreturer/" + driverId + "/Drives")
-
-        var newPostRef = drives.push();
-        newPostRef.set({
-            DriverArriveStopTime: DriverArriveStopTime,
-            acceptedDetour: acceptedDetour,
-            driverName: driverName,
-            startPlace: startPlace,
-            stopPlace: stopPlace
-
-        });
-
-    }
 
     function expandViewportToFitPlace(map, place) {
         if (place.geometry.viewport) {

@@ -263,13 +263,11 @@ function initMap() {
                     window.alert('Directions request failed due to ' + status);
                 }
             });
-<<<<<<< HEAD
-=======
+
 
             addRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
             origin_input.value = "";
             destination_input.value = "";
->>>>>>> 141f04954ec6f697110d1e083d08de357115ea26
         }
     }
 

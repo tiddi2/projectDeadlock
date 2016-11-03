@@ -50,3 +50,14 @@ html, body {
 #origin-input:focus, #destination-input:focus {
     border-color: #4d90fe;
 }
+.drivesPresented {
+    width: 350px;
+    background: rgba(00,191,255,.4);
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+#placement {
+    height: 600px;
+    width: 370px;
+    overflow: auto;
+}

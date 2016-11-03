@@ -23,7 +23,7 @@ meldinger.on('child_added', function (snap) {
 function writeUserData(displayName,message) {
     var today = new Date()
     var year = today.getFullYear().toString()
-    var month = monthName[(today.getMonth()+1)]
+    var month = monthName[today.getMonth()]
     var date = today.getDate().toString()
     var datoString = date + " " + month + " " + year;
     var hour = today.getHours()

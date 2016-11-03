@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Element kopierings test</title>
+        <style media="screen">
+            .drivesPresented {
+                width: 200px;
+                background: rgba(00,191,255,.4);
+                margin-bottom: 10px;
+            }
+            #placement {
+                height: 600px;
+                width: 220px;
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="placement">
+
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+        <script src="../js/firebaseInit.js"></script>
+
+    <script>
+
+    const database = firebase.database();
+    const ruter = database.ref("kjoreturer");
+    hentfraDatabase()
+
+    function hentfraDatabase() {
+        ruter.on("child_added", function(snapshot) {
+            for (user in snapshot.val()) {
+                for (trip in snapshot.child(user).val()) {
+                    let driverName = snapshot.child(user).child(trip).val().driverName;
+                    let tidspunkt = snapshot.child(user).child(trip).val().DriverArriveStopTime;
+                    let start = snapshot.child(user).child(trip).val().startPlace;
+                    let stop = snapshot.child(user).child(trip).val().stopPlace;
+                    let omveiTid = snapshot.child(user).child(trip).val().acceptedDetour;
+
+                    var divElement = document.createElement("div")
+                    divElement.innerHTML = "From: " + start + "</br>" + "To: " + stop +
+                    "</br> With: " + driverName;
+                    divElement.setAttribute('from', start);
+                    divElement.setAttribute('to', stop);
+                    divElement.setAttribute('with', driverName);
+                    divElement.setAttribute('driverID', snapshot.key);
+                    divElement.className = "drivesPresented"
+                    divElement.onmouseover = hei
+                    document.getElementById("placement").appendChild(divElement)
+                }
+            }
+        })
+    }
+    function hei() {
+        console.log(this.innerHTML)
+
+    }
+    </script>
+    </body>
+</html>

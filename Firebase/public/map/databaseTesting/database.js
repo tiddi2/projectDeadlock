@@ -40,7 +40,7 @@ function hentInfo(){
             let driver = infoObject.driverName;
             let startPlace = infoObject.startPlace;
             let stopPlace = infoObject.stopPlace;
-            let time = infoObject.driverArriveStopTime;
+            let time = infoObject.DriverArriveStopTime;
 
             info.innerHTML = driver + "\nStart: " + startPlace + "\nStop: " + stopPlace + "\nNår: " + time;
           }

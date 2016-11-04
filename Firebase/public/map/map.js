@@ -219,7 +219,7 @@ function initMap() {
                             document.getElementById("originalTime").innerHTML = "Orginal tid: " + originalTime.toFixed(2) + " min";
                             document.getElementById("originalDistance").innerHTML = "Orginal distanse: " + originalDistanse.toFixed(2) + " km";
 
-
+                            document.getElementById("map").style.width = 85 + "%";
                             var totalTime = 0;
                             var totalDistance = 0;
                             for (var i = 1; i < originList.length; i++) {

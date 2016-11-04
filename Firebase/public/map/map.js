@@ -106,12 +106,25 @@ function initMap() {
     directionsDisplay.setMap(map);
     var confirm_route = document.getElementById("confirmRoute")
     var origin_input = document.getElementById('origin-input');
+    var driverLabel = document.getElementById("driverLabel")
+    var passengerLabel = document.getElementById("passengerLabel")
+    var switcher = document.getElementById("switcher")
+    var switchElement = document.getElementById("driverPassengerSwitch")
+    var switchLabel = document.getElementById("switchLabel")
     var destination_input = document.getElementById('destination-input');
     var avalible = document.getElementById("placement")
     confirm_route.onclick = collectData
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(driverLabel);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(switcher);
+    //switcher.appendChild(switchElement)
+    //switcher.appendChild(switchLabel)
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(passengerLabel);
+
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(confirm_route);
+
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(avalible)
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
     origin_autocomplete.bindTo('bounds', map);
@@ -119,7 +132,8 @@ function initMap() {
     destination_autocomplete.bindTo('bounds', map);
 
     function collectData() {
-        if(true) {
+        //if passasjer
+        if(document.getElementById("myonoffswitch").checked) {
             myStops[0] = {
                 location: origin_input.value,
                 stopover: true
@@ -128,8 +142,11 @@ function initMap() {
                 location:  destination_input.value,
                 stopover: true
             }
+            hentfraDatabase()
         }
+        //if sjåfør
         else {
+            //Legger inn kjøre rute i database på den gamle måten (som sjåfør)
             const driverId = userid
             const arrivalTime = (new Date()).toString() //skal bli utfyllt automatisk,
             const acceptedDetour = 30
@@ -137,51 +154,12 @@ function initMap() {
             const startPlace = origin_input.value
             const stopPlace = destination_input.value
             if (startPlace !== "" && stopPlace !== "") {
-                //finner tid og distanse
-                service.getDistanceMatrix({
-                    origins: [startPlace, startPlace, mellomstoppFraDatabase[0].location,mellomstoppFraDatabase[1].location],
-                    destinations: [stopPlace, mellomstoppFraDatabase[0].location,mellomstoppFraDatabase[1].location, stopPlace],
-                    travelMode: 'DRIVING',
-                    unitSystem: google.maps.UnitSystem.METRIC,
-                    avoidHighways: false,
-                    avoidTolls: false
-                }, function(response, status) {
-                    if (status !== 'OK') {
-                        alert('Error was: ' + status);
-                    }
-                    else {
-                        var originList = response.originAddresses;
-                        var destinationList = response.destinationAddresses;
-                        var outputDiv = document.getElementById('output');
-                        outputDiv.innerHTML = '';
-                        var originalTime = response.rows[0].elements[0].duration.value/60;
-                        var originalDistanse = response.rows[0].elements[0].distance.value/1000;
 
-                        var totalTime = 0;
-                        var totalDistance = 0;
-                        for (var i = 1; i < originList.length; i++) {
-                            var results = response.rows[i].elements;
-                            outputDiv.innerHTML += originList[i] + ' to ' + destinationList[i] +
-                            ': ' + results[i].distance.text + ' in ' +
-                            results[i].duration.text + '<br>';
-                            totalTime += results[i].duration.value/60
-                            totalDistance += results[i].distance.value/1000
-                        }
-                        console.log("Orginal tid: " + originalTime)
-                        console.log("Total tid: " + totalTime)
-                        console.log("ekstra tid: " + (totalTime - originalTime))
-                        console.log("Orginal distanse: " + originalDistanse + "km")
-                        console.log("Total distanse: " + totalDistance + "km")
-                        console.log("Ekstra distanse: " + (totalDistance - originalDistanse) + "km")
-                    }
-                });
-
-                saveRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
+                addRouteToDatabase(driverId,driverName,startPlace,stopPlace,acceptedDetour,arrivalTime)
                 origin_input.value = "";
                 destination_input.value = "";
             }
         }
-        hentfraDatabase()
 
         function hentfraDatabase() {
             const database = firebase.database();
@@ -236,36 +214,33 @@ function initMap() {
                         else {
                             var originList = response.originAddresses;
                             var destinationList = response.destinationAddresses;
-                            var outputDiv = document.getElementById('output');
-                            outputDiv.innerHTML = '';
                             var originalTime = response.rows[0].elements[0].duration.value/60;
                             var originalDistanse = response.rows[0].elements[0].distance.value/1000;
+                            document.getElementById("originalTime").innerHTML = "Orginal tid: " + originalTime.toFixed(2) + " min";
+                            document.getElementById("originalDistance").innerHTML = "Orginal distanse: " + originalDistanse.toFixed(2) + " km";
+
 
                             var totalTime = 0;
                             var totalDistance = 0;
                             for (var i = 1; i < originList.length; i++) {
                                 var results = response.rows[i].elements;
-                                outputDiv.innerHTML += originList[i] + ' to ' + destinationList[i] +
-                                ': ' + results[i].distance.text + ' in ' +
-                                results[i].duration.text + '<br>';
+
                                 totalTime += results[i].duration.value/60
                                 totalDistance += results[i].distance.value/1000
                             }
-                            console.log("Orginal tid: " + originalTime.toFixed(2) + " min")
-                            console.log("Total tid: " + totalTime.toFixed(2) + " min")
-                            console.log("ekstra tid: " + (totalTime - originalTime).toFixed(2) + " min")
-                            console.log("Orginal distanse: " + originalDistanse.toFixed(2) + " km")
-                            console.log("Total distanse: " + totalDistance.toFixed(2) + " km")
-                            console.log("Ekstra distanse: " + (totalDistance - originalDistanse).toFixed(2) + " km")
+
+
+                            document.getElementById("totalTime").innerHTML = "Total tid: " + totalTime.toFixed(2) + " min";
+                            document.getElementById("extraTime").innerHTML =  "Ekstra tid: " + (totalTime - originalTime).toFixed(2) + " min";
+
+                            document.getElementById("totalDistance").innerHTML = "Total distanse: " + totalDistance.toFixed(2) + " km";
+                            document.getElementById("extraDistance").innerHTML =  "Ekstra distanse: " + (totalDistance - originalDistanse).toFixed(2) + " km";
                         }
                     });
                 } else {
                     window.alert('Directions request failed due to ' + status);
                 }
             });
-
-
-            addRouteToDatabase(driverId, arrivalTime, acceptedDetour, driverName, startPlace, stopPlace)
             origin_input.value = "";
             destination_input.value = "";
         }

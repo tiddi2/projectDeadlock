@@ -12,12 +12,29 @@
     <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
     <input id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
     <button type="button" id="confirmRoute" name="confirm">Confirm Route</button>
+    <!-- Rounded switch -->
+    <span class="bigLetters" id="driverLabel">Driver</span>
+    <div class="onoffswitch" id="switcher">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        <label class="onoffswitch-label" for="myonoffswitch"></label>
+    </div>
+    <span class="bigLetters" id="passengerLabel">Passenger</span>
+
     <div id="map"></div>
     <div id="placement">
 
     </div>
     <div id="output">
     </div>
+    <div id="originalTime"></div>
+    <div id="totalTime"></div>
+    <div id="extraTime"></div>
+
+    <div id="originalDistance"></div>
+    <div id="totalDistance"></div>
+    <div id="extraDistance"></div>
+
+
     <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPJ0XxyAo7io5FSQ_RqNJvPeQEhrc8-ts&libraries=places&callback=initMap" async defer></script>
     <script src="../js/firebaseInit.js"></script>

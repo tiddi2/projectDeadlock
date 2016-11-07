@@ -3,18 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Project Deadlock er en nettside der Tidemann Norli legger ut sine prosjekter">
+    <meta name="author" content="Tidemann Norli">
     <title>Project Deadlock</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="images/icons/js_icon.png">
+    <link rel="shortcut icon" href="images/icons/js_icon_logo_small.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
@@ -69,7 +70,7 @@
                     </div><!--/.col-md-4-->
                     <div class="col-md-4 col-sm-6">
                         <div class="center">
-                            <img src="images/icons/fl_logo.png" alt="flash logo" width="75" height="75" />
+                            <img src="images/icons/fl_logo_small.png" alt="flash logo" width="75" height="75" />
                         <h4>Actionscript utvikling</h4>
                             <p>Et par av mine IT2 prosjekter, utviklet i actionscript</p>
                             <a href="#">Sarpsborg 2016 (muntlig eksamen) <br>
@@ -78,7 +79,7 @@
                     </div><!--/.col-md-4-->
                     <div class="col-md-4 col-sm-6">
                         <div class="center">
-                            <img src="images/icons/kart_logo.png" alt="flash logo" width="75" height="75" />
+                            <img src="images/icons/kart_logo_small.png" alt="kart logo" width="75" height="75" />
                             <h4>Digital Haiking</h4>
                             <p>Ideen er at sjåfører legger inn kjøreturer og hvem som helst kan legge inn hvor de skal og spørre om å bli med sjåføren. </p>
                             <a href="https://projectdeadlock.com/map/">Link til prosjektsiden</a>
@@ -86,7 +87,7 @@
                     </div><!--/.col-md-4-->
                     <div class="col-md-4 col-sm-6">
                         <div class="center">
-                            <img src="images/icons/editSite_logo.png" alt="flash logo" width="75" height="75" />
+                            <img src="images/icons/editSite_logo_small.png" alt="edit website logo" width="75" height="75" />
                             <h4>Åpen chat</h4>
                             <p>Jeg satt opp en <a href="chat/index.html">åpen chat</a> for å lære med sanntids database i med Firebase</p>
 
@@ -94,14 +95,14 @@
                     </div><!--/.col-md-4-->
                     <div class="col-md-4 col-sm-6">
                         <div class="center">
-                            <img src="images/icons/chat_logo.png" alt="flash logo" width="75" height="75" />
+                            <img src="images/icons/chat_logo_small.png" alt="chat logo" width="75" height="75" />
                             <h4>Lag din egen nettside</h4>
                             <a href="http://ask.hiof.no/~hermanjd/ADesign/index.html">Webutvikling innlevering (Gruppeprosjekt)</a>
                         </div>
                     </div><!--/.col-md-4-->
                     <div class="col-md-4 col-sm-6">
                         <div class="center">
-                            <img src="images/icons/js_logo.png" alt="flash logo" width="75" height="75" />
+                            <img src="images/icons/js_logo_small.png" alt="javascript logo" width="75" height="75" />
                             <h4>Tidligere javascript innleveringer</h4>
                             <p><a href="http://ask.hiof.no/~anderstn/infporg/oblig1/pages/oppgave9a.html">Innlevering 1 oppgave 9 (Musikkprogram)</a> <br>
                             <a href="http://ask.hiof.no/~anderstn/infporg/oblig2/">Innlevering 2 (login og kalender)</a></p>
@@ -118,25 +119,25 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <h1>Kontakt skjema</h1>
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                        <p>Hvis du har spørsmål? Ikke nøl med å ta kontakt</p>
                         <div class="status alert alert-success" style="display: none"></div>
-                        <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
+                        <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="https://formspree.io/7fe3bf2f@opayq.com" role="form">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" required="required" placeholder="Name">
+                                        <input type="text" name="name" class="form-control" required="required" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" required="required" placeholder="Email address">
+                                        <input type="email" name="email"  class="form-control" required="required" placeholder="Email address">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Message"></textarea>
+                                        <textarea name="message" id="message" required="required" class="form-control" placeholder="Message"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-danger btn-lg">Send Message</button>

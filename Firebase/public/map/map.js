@@ -2,12 +2,12 @@ var userid, displayName, email, photoURL
 var mellomstoppFraDatabase;
 const waypoints = firebase.database().ref("waypoints")
 var myStops = []
+
+
+
+
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
-
-        const provider = new firebase.auth.GoogleAuthProvider();
-
-
         //var carPicture or number
         waypoints.on('child_added', function(snap) {
             mellomstoppFraDatabase = snap.child("waypoints").val()
@@ -17,11 +17,13 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         displayName = firebase.auth().currentUser.displayName
         email = firebase.auth().currentUser.email
         photoURL = firebase.auth().currentUser.photoURL
-    } else {
-        console.log("Ikke innlogget")
-        window.location.href = "../login.html"
+    }
+    else {
+        firebase.auth().signInWithRedirect(provider);
     }
 });
+
+
 var directionsService;
 var directionsDisplay;
 function initMap() {

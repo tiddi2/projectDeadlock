@@ -1,6 +1,28 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+     "chat": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      },
+      "contactForm": {
+        ".read": false,
+        ".write": "auth != null"
+      },
+      "kjoreturer": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      },
+      "userInfo": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      },
+      "users": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      },
+      "waypoints": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
   }
 }

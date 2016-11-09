@@ -10,7 +10,6 @@
     <script src="js/loginscript.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
@@ -25,37 +24,12 @@
 </head><!--/head-->
 
 <body data-spy="scroll" data-target="#navbar" data-offset="0">
-    <!--Fjerner de andre bildene i headeren
-     <header id="header" role="banner">
-        <div class="container">
-            <div id="navbar" class="navbar navbar-default">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"></a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#main-slider"><i class="icon-home"></i></a></li>
-                        <li><a href="#contact">Kontakt</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header> -->
-    <!--/#header-->
+
     <section id="main-slider" class="carousel">
-        <div class="carousel-inner">
             <div class="item active">
-                <div class="container">
-                    <div class="carousel-content">
-                        <h1>Project Deadlock</h1>
-                        <p class="lead">Tidemann Norli sin prosjektside</p>
-                    </div>
-                </div>
+                <h1>Project Deadlock</h1>
+                <p class="lead">Tidemann Norli sin prosjektside</p>
             </div><!--/.item-->
-        </div><!--/.carousel-inner-->
     </section><!--/#main-slider-->
 
     <section id="services">
@@ -114,62 +88,61 @@
             </div><!--/.box-->
         </div><!--/.container-->
     </section><!--/#services-->
-
-    <section id="contact">
-        <div class="container">
-            <div class="box last">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h1>Kontakt skjema</h1>
-                        <p>Hvis du har spørsmål? Ikke nøl med å ta kontakt</p>
-                        <h3 id="tilbakemelding"></h3>
-                        <div class="status alert alert-success" style="display: none"></div>
-                        <form id="main-contact-form" class="contact-form" name="contact-form" role="form">
+    <footer>
+        <section id="contact">
+            <div class="container">
+                <div class="box last">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h1>Kontakt skjema</h1>
+                            <p>Hvis du har spørsmål? Ikke nøl med å ta kontakt</p>
+                            <h3 id="tilbakemelding"></h3>
+                            <div class="status alert alert-success" style="display: none"></div>
+                            <form id="main-contact-form" class="contact-form" name="contact-form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" name="name" id="nameField" class="form-control" placeholder="Navn">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="email" name="email" id="emailField" class="form-control"  placeholder="Epostadresse">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <textarea name="message" id="message"  class="form-control" placeholder="Melding"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-danger btn-lg" id="sendMelding">Send melding</button>
+                                            <img src="images/shapebootstrap.png" alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!--/.col-sm-6-->
+                        <div class="col-sm-6">
+                            <h1>Kontakt meg</h1>
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input type="text" name="name" id="nameField" class="form-control" ="required" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input type="text" name="email" id="emailField" class="form-control"  placeholder="Email address">
-                                    </div>
+                                <div class="col-md-6">
+                                    <ul class="social">
+                                        <li><a href="https://www.facebook.com/atidemann.norli" target="_blank"><i class="icon-facebook icon-social"></i> Facebook</a></li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <textarea name="message" id="message"  class="form-control" placeholder="Message"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-danger btn-lg" id="sendMelding">Send Message</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div><!--/.col-sm-6-->
-                    <div class="col-sm-6">
-                        <h1>Kontakt meg</h1>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ul class="social">
-                                    <li><a href="https://www.facebook.com/atidemann.norli" target="_blank"><i class="icon-facebook icon-social"></i> Facebook</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div><!--/.col-sm-6-->
-                </div><!--/.row-->
-            </div><!--/.box-->
-        </div><!--/.container-->
-    </section><!--/#contact-->
-
+                        </div><!--/.col-sm-6-->
+                    </div><!--/.row-->
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#contact-->
+    </footer>
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
     <script src="js/contactform.js">
 
     </script>

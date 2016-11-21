@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         console.log("innlogget")
         //logURL(userUID, nettadresse)
     } else {
-        console.log("Ikke innlogget")
+         firebase.auth().signInWithRedirect(provider);
     }
 });
 /*

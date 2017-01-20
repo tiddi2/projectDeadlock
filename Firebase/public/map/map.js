@@ -129,6 +129,8 @@ function initMap() {
 
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(avalible)
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
+    origin_input.onblur = choosOriginPlace;
+    destination_input.onblur = choosDestinationPlace;
     origin_autocomplete.bindTo('bounds', map);
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
@@ -257,39 +259,21 @@ function initMap() {
             map.setZoom(17);
         }
     }
-/*
-    origin_autocomplete.addListener('place_changed', function() {
-        var place = origin_autocomplete.getPlace();
-        if (!place.geometry) {
-            window.alert("Autocomplete's returned place contains no geometry");
-            return;
+
+    function choosOriginPlace() {
+        if(origin_autocomplete.gm_accessors_.place.Bc.predictions.length > 0) {
+            //setter origin_input til å være best guess når inputfelt mister fokus
+            origin_input.value = origin_autocomplete.gm_accessors_.place.Bc.predictions[0].b;
         }
-        expandViewportToFitPlace(map, place);
+    }
 
-        // If the place has a geometry, store its place ID and route if we have
-        // the other place ID
-        origin_place_id = place.place_id;
-        route(origin_place_id, destination_place_id, travel_mode,
-            directionsService, directionsDisplay);
-    });
-
-    destination_autocomplete.addListener('place_changed', function() {
-        console.log("Destinatiopn CHANGED")
-        var place = destination_autocomplete.getPlace();
-        console.log(destination_autocomplete)
-        if (!place.geometry) {
-            window.alert("Autocomplete's returned place contains no geometry");
-            return;
+    function choosDestinationPlace() {
+        if(destination_autocomplete.gm_accessors_.place.Bc.predictions.length > 0) {
+            //setter destination_input til å være best guess når inputfelt mister fokus
+            destination_input.value = destination_autocomplete.gm_accessors_.place.Bc.predictions[0].b;
         }
-        expandViewportToFitPlace(map, place);
+    }
 
-        // If the place has a geometry, store its place ID and route if we have
-        // the other place ID
-        destination_place_id = place.place_id;
-        route(origin_place_id, destination_place_id, travel_mode,
-            directionsService, directionsDisplay);
-    });
-*/
     function route(origin_place_id, destination_place_id, travel_mode,
         directionsService, directionsDisplay) {
         if (!origin_place_id || !destination_place_id) {
